@@ -1,0 +1,40 @@
+@startuml
+title User Registration
+hide footbox
+skinparam BoxPadding 10
+
+actor User
+participant "Application" as API
+participant "Elasticsearch" as ES
+participant "Redis" as RE
+
+hide unlinked
+title 'API user registration'
+    User -> API: POST /v1/shortener/users/registration {user data}
+    API -> ES: Save user
+    API <-- ES: User created
+    User <-- API: HTTP response 201 {JWT token}
+
+newpage 'API login user'
+    User -> API: POST /v1/shortener/users/login {user credentials}
+    API -> ES: Search for user
+    API <-- ES: result
+    User <-- API: HTTP response 200 {JWT token}
+
+newpage 'API create short url'
+    User -> API: POST /v1/shortener/url {long url}
+    API -> ES: save url
+    API -> RE: save url
+    User <-- API: HTTP response 201 {Short url}
+
+newpage 'API get by short url'
+    User -> API: GET /{short_url_identifier}
+    API -> RE: find url
+    API <-- RE: long url
+    opt if not found in Redis
+        API -> ES: find url
+        API <-- ES: long url
+    end
+    User <-- API: redirect to long url
+@enduml
+

@@ -1,0 +1,29 @@
+@startuml
+package "rest" {
+    class "UrlController"
+    class "AuthController"
+}
+
+package "service" {
+    interface "UrlService"
+    interface "AuthService"
+    class "UrlServiceImpl"
+    class "AuthServiceImpl"
+}
+
+package "repository" {
+    interface "RedisUrlRepository"
+    interface "ElasticUrlRepository"
+    interface "ElasticUserRepository"
+}
+
+'Controller layer
+"UrlService" <-- "UrlController"
+"AuthController" --> "AuthService"
+'Service layer
+"UrlServiceImpl" ..|> "UrlService"
+"AuthServiceImpl" ..|> "AuthService"
+"ElasticUrlRepository" --> "UrlServiceImpl"
+"RedisUrlRepository" --> "UrlServiceImpl"
+"ElasticUserRepository" --> "AuthServiceImpl"
+@enduml

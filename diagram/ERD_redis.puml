@@ -1,0 +1,31 @@
+@startuml
+package Redis {
+    entity "link" {
+        short_identifier
+    --
+        creator_login
+        original_url
+        expiration_timestamp
+        permitted_logins
+    }
+}
+package Elasticsearch {
+    entity "link" {
+        short_identifier : text
+    --
+        creator_login : text
+        original_url : text
+        expiration_timestamp : date
+        permitted_logins : text[]
+    }
+    entity "user" {
+        uid : UUID
+    --
+        login : text
+        password : text
+        original_url : text
+        expiration_timestamp : date?
+        permitted_logins : text[]?
+    }
+}
+@enduml
