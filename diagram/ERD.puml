@@ -23,9 +23,6 @@ package Elasticsearch {
     --
         login : text
         password : text
-        original_url : text
-        expiration_timestamp : date?
-        permitted_logins : text[]?
     }
 }
 @enduml

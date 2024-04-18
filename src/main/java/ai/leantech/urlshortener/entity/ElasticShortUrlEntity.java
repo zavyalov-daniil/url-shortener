@@ -3,17 +3,20 @@ package ai.leantech.urlshortener.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
-@Document(indexName = "link")
+import java.util.List;
+
+@Document(indexName = "short_url")
 @Data
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ElasticLink {
+public class ElasticShortUrlEntity {
     @Id
-    private String identifier;
+    private String shortKey;
     private String originalUrl;
+    private String creatorLogin;
+    private Long expiration;
+    private List<String> permittedEmails;
 }
