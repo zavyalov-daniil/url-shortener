@@ -1,5 +1,7 @@
 package ai.leantech.urlshortener.rest;
 
+import ai.leantech.urlshortener.entity.ElasticLink;
+import ai.leantech.urlshortener.entity.ElasticsearchLinkRepository;
 import ai.leantech.urlshortener.entity.LinkEntity;
 import ai.leantech.urlshortener.repository.RedisRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,15 +18,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class UrlController {
     private final RedisRepository repository;
+    private final ElasticsearchLinkRepository elasticsearchLinkRepository;
 
     @GetMapping("/{id}")
-    public LinkEntity get(@PathVariable("id") String id) {
-        return repository.findById(id).orElse(null);
+    public ElasticLink get(@PathVariable("id") String id) {
+        return elasticsearchLinkRepository.findById(id).orElse(null);//repository.findById(id).orElse(null);
     }
 
     @PostMapping
     //@Cacheable(cacheNames = "Link", key = "#entity.identifier")
-    public LinkEntity post(@RequestBody LinkEntity entity) {
-        return repository.save(entity);
+    public ElasticLink post(@RequestBody ElasticLink entity) {
+        return elasticsearchLinkRepository.save(entity);//repository.save(entity);
     }
 }

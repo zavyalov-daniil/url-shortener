@@ -1,8 +1,129 @@
-version: '3'
-
+version: '3.4'
 services:
-  redis:
-    image: redis:latest
-    container_name: redis-shortener
+  elasticsearch-master:
+    #    image: docker.elastic.co/elasticsearch/elasticsearch:6.8.12
+    image: elasticsearch:7.17.20
+    container_name: elasticsearch-master
+
     ports:
-      - "6380:6379"
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      - node.name=master-node
+      - cluster.name=docker-cluster
+      - cluster.initial_master_nodes=master-node
+      - discovery.seed_hosts=elasticsearch-slave
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+#    healthcheck:
+#      test: ["CMD-SHELL", "curl -f http://localhost:9200/_cluster/health >/dev/null"]
+#      interval: 10s
+#      timeout: 10s
+#      retries: 3
+    networks:
+      - traefik-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.elasticsearch-master.rule=Host(`elasticsearch-master.localtest.me`)"
+      - "traefik.http.services.elasticsearch-master.loadbalancer.server.port=29200"
+
+#  vm-modifier:
+#    image: vm-modifier
+#    container_name: elasticsearch-vm-memory-modifier
+#    privileged: true
+#    restart: "no"
+
+  elasticsearch-slave:
+    image: elasticsearch:7.17.20
+    container_name: elasticsearch-slave
+    #entrypoint: ["sh", "./entrypoint.sh"]
+    ports:
+      - "29200:9200"
+      - "29300:9300"
+    environment:
+      - node.name=slave-node
+      - cluster.name=docker-cluster
+      - cluster.initial_master_nodes=master-node
+      - discovery.seed_hosts=elasticsearch-master
+      - xpack.security.enabled=false
+      - bootstrap.memory_lock=false
+#      - "cluster.routing.allocation.disk.watermark.low=4%"
+#      - "cluster.routing.allocation.disk.watermark.high=8%"
+      #      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+#    healthcheck:
+#      test: ["CMD-SHELL", "curl -f http://localhost:9200/_cluster/health >/dev/null"]
+#      interval: 10s
+#      timeout: 10s
+#      retries: 3
+    networks:
+      - traefik-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.elasticsearch-master.rule=Host(`elasticsearch-slave.localtest.me`)"
+      - "traefik.http.services.elasticsearch-master.loadbalancer.server.port=9200"
+
+  traefik:
+    image: traefik:v2.5
+    container_name: traefik
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--entrypoints.web.address=:80"
+      - "--providers.docker.exposedbydefault=false"
+    ports:
+      - "28080:8080"
+      - "28181:80"
+    networks:
+      - traefik-network
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - elasticsearch-master
+      - elasticsearch-slave
+
+  redis:
+    image: redis:6.2-alpine
+    container_name: redis
+    restart: no
+    ports:
+      - "6379:6379"
+    networks:
+      - traefik-network
+#    healthcheck:
+#      test: [ "CMD", "redis-cli", "-p", "6379", "ping" ]
+#      interval: 30s
+#      timeout: 10s
+#      retries: 3
+#      start_period: 10s
+
+  redis-insight:
+    image: redislabs/redisinsight:latest
+    container_name: redis-insight
+    ports:
+      - "28001:8001"
+      - "5540:5540"
+    environment:
+      - REDIS_URI=redis://redis:6379
+    networks:
+      - traefik-network
+    depends_on:
+      - redis
+#    healthcheck:
+#      test: [ "CMD", "curl", "-s", "http://localhost:8001", "-o", "/dev/null" ]
+#      interval: 30s
+#      timeout: 10s
+#      retries: 3
+#      start_period: 10s
+
+networks:
+  traefik-network:
+    driver: bridge
