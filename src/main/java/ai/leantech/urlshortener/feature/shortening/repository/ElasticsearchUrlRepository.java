@@ -1,4 +1,4 @@
-package ai.leantech.urlshortener.feature.link.repository;
+package ai.leantech.urlshortener.feature.shortening.repository;
 
 import ai.leantech.urlshortener.entity.ElasticShortUrlEntity;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;

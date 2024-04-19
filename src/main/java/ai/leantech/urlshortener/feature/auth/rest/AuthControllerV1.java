@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController("/v1/shortener/auth")
 @RequiredArgsConstructor
-public class AuthController {
+public class AuthControllerV1 {
     private final AuthService authService;
 
     @PostMapping("/registration")

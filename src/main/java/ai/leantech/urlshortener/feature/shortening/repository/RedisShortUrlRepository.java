@@ -1,4 +1,4 @@
-package ai.leantech.urlshortener.feature.link.repository;
+package ai.leantech.urlshortener.feature.shortening.repository;
 
 import ai.leantech.urlshortener.entity.RedisShortUrlEntity;
 import org.springframework.data.repository.CrudRepository;

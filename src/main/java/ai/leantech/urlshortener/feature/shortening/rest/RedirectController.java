@@ -1,6 +1,6 @@
-package ai.leantech.urlshortener.feature.link.rest;
+package ai.leantech.urlshortener.feature.shortening.rest;
 
-import ai.leantech.urlshortener.feature.link.service.ShortUrlService;
+import ai.leantech.urlshortener.feature.shortening.service.ShortUrlService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +13,7 @@ public class RedirectController {
 
     @GetMapping("/{short_key}")
     public String getContentByShortLink(@PathVariable("short_key") String key) {
-        return "redirect:https://github.com/";
+        String longUrl = service.getLongUrlByKey(key);
+        return "redirect:" + longUrl;
     }
 }

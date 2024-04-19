@@ -17,6 +17,6 @@ public class ElasticShortUrlEntity {
     private String shortKey;
     private String originalUrl;
     private String creatorLogin;
-    private Long expiration;
+    private Long expirationTimestamp;
     private List<String> permittedEmails;
 }
