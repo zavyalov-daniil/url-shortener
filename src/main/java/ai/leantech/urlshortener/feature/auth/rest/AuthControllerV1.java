@@ -6,12 +6,10 @@ import ai.leantech.urlshortener.feature.auth.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-@RestController("/v1/shortener/auth")
+@RestController
+@RequestMapping("/v1/shortener/auth")
 @RequiredArgsConstructor
 public class AuthControllerV1 {
     private final AuthService authService;

@@ -2,6 +2,7 @@ package ai.leantech.urlshortener.feature.shortening.rest;
 
 import ai.leantech.urlshortener.common.dto.LongUrlRequestDto;
 import ai.leantech.urlshortener.feature.shortening.service.ShortUrlService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,7 +16,7 @@ public class ShortUrlControllerV1 {
     private final ShortUrlService service;
 
     @PostMapping
-    public String createUrl(@RequestBody LongUrlRequestDto dto) {
+    public String createUrl(@RequestBody @Valid LongUrlRequestDto dto) {
         return service.createShortUrl(dto);
     }
 }

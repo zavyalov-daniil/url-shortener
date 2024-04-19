@@ -17,8 +17,8 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class ShortUrlService {
-    @Value("app.url")
-    private static String APP_URL;
+    @Value("${app.url}")
+    private String APP_URL;
     private final RedisShortUrlRepository redisUrlRepository;
     private final ElasticsearchUrlRepository elasticsearchUrlRepository;
     private final UrlMapper urlMapper;
