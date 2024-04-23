@@ -23,7 +23,7 @@ public class AuthService {
     private final UserMapper userMapper;
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder encoder;
-    private final JWTTokenManager JWTTokenManager;
+    private final JWTTokenManager jwtTokenManager;
 
     public void createUser(UserRegistrationRequestDto userDto) {
         ElasticUserEntity entity = userMapper.map(userDto);
@@ -38,7 +38,7 @@ public class AuthService {
                 .setAuthentication(authentication);
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
-        String jwt = JWTTokenManager.generateJwtToken(authentication);
+        String jwt = jwtTokenManager.generateJwtToken(authentication);
 
         return new TokenResponseDto(jwt);
     }

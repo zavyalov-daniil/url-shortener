@@ -20,7 +20,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 @Component
 public class AuthTokenFilter extends OncePerRequestFilter {
-    private final JWTTokenManager JWTTokenManager;
+    private final JWTTokenManager jwtTokenManager;
 
     private final UserDetailsServiceImpl userDetailsService;
 
@@ -28,8 +28,8 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
             String jwt = parseJwt(request);
-            if (jwt != null && JWTTokenManager.validateJwtToken(jwt)) {
-                String username = JWTTokenManager.getUserNameFromJwtToken(jwt);
+            if (jwt != null && jwtTokenManager.validateJwtToken(jwt)) {
+                String username = jwtTokenManager.getUserNameFromJwtToken(jwt);
 
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(

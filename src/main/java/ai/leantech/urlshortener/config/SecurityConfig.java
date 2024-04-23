@@ -20,7 +20,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
-public class    SecurityConfig {
+public class SecurityConfig {
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider(
