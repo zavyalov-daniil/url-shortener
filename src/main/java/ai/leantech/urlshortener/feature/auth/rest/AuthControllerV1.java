@@ -1,6 +1,7 @@
 package ai.leantech.urlshortener.feature.auth.rest;
 
 import ai.leantech.urlshortener.common.dto.AuthRequestDto;
+import ai.leantech.urlshortener.common.dto.TokenResponseDto;
 import ai.leantech.urlshortener.common.dto.UserRegistrationRequestDto;
 import ai.leantech.urlshortener.feature.auth.service.AuthService;
 import jakarta.validation.Valid;
@@ -21,7 +22,7 @@ public class AuthControllerV1 {
     }
 
     @PostMapping
-    public String login(@RequestBody @Valid AuthRequestDto requestDto) {
+    public TokenResponseDto login(@RequestBody @Valid AuthRequestDto requestDto) {
         return authService.getToken(requestDto);
     }
 }
