@@ -85,7 +85,7 @@ services:
       - "28001:8001"
       - "5540:5540"
     environment:
-      - REDIS_URI=redis://redis:6380
+      - REDIS_URI=redis://redis:6379
     networks:
       - traefik-network
     depends_on:

@@ -1,6 +1,6 @@
 package ai.leantech.urlshortener.config;
 
-import ai.leantech.urlshortener.entity.ElasticUserEntity;
+import ai.leantech.urlshortener.feature.auth.entity.ElasticUserEntity;
 import ai.leantech.urlshortener.feature.auth.repository.ElasticsearchUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

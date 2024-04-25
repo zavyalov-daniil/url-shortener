@@ -1,6 +1,6 @@
 package ai.leantech.urlshortener.feature.auth.repository;
 
-import ai.leantech.urlshortener.entity.ElasticUserEntity;
+import ai.leantech.urlshortener.feature.auth.entity.ElasticUserEntity;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 import org.springframework.stereotype.Repository;
 

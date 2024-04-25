@@ -1,4 +1,4 @@
-package ai.leantech.urlshortener.entity;
+package ai.leantech.urlshortener.feature.shortening.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

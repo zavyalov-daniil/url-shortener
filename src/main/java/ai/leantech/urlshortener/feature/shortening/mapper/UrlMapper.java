@@ -1,8 +1,8 @@
 package ai.leantech.urlshortener.feature.shortening.mapper;
 
 import ai.leantech.urlshortener.common.dto.LongUrlRequestDto;
-import ai.leantech.urlshortener.entity.ElasticShortUrlEntity;
-import ai.leantech.urlshortener.entity.RedisShortUrlEntity;
+import ai.leantech.urlshortener.feature.shortening.entity.ElasticShortUrlEntity;
+import ai.leantech.urlshortener.feature.shortening.entity.RedisShortUrlEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

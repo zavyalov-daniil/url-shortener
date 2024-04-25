@@ -1,6 +1,6 @@
 package ai.leantech.urlshortener.config;
 
-import ai.leantech.urlshortener.entity.ElasticUserEntity;
+import ai.leantech.urlshortener.feature.auth.entity.ElasticUserEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;

@@ -1,6 +1,7 @@
 package ai.leantech.urlshortener.feature.shortening.rest;
 
 import ai.leantech.urlshortener.common.dto.LongUrlRequestDto;
+import ai.leantech.urlshortener.feature.shortening.entity.RedisShortUrlEntity;
 import ai.leantech.urlshortener.feature.shortening.service.ShortUrlService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

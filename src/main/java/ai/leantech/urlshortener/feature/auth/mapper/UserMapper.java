@@ -1,7 +1,7 @@
 package ai.leantech.urlshortener.feature.auth.mapper;
 
 import ai.leantech.urlshortener.common.dto.UserRegistrationRequestDto;
-import ai.leantech.urlshortener.entity.ElasticUserEntity;
+import ai.leantech.urlshortener.feature.auth.entity.ElasticUserEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

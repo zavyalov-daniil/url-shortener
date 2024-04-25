@@ -5,7 +5,7 @@ import ai.leantech.urlshortener.common.dto.TokenResponseDto;
 import ai.leantech.urlshortener.common.dto.UserRegistrationRequestDto;
 import ai.leantech.urlshortener.config.JWTTokenManager;
 import ai.leantech.urlshortener.config.UserDetailsImpl;
-import ai.leantech.urlshortener.entity.ElasticUserEntity;
+import ai.leantech.urlshortener.feature.auth.entity.ElasticUserEntity;
 import ai.leantech.urlshortener.feature.auth.mapper.UserMapper;
 import ai.leantech.urlshortener.feature.auth.repository.ElasticsearchUserRepository;
 import lombok.RequiredArgsConstructor;
