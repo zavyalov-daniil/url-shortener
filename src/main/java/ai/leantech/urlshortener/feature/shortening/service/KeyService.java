@@ -41,14 +41,18 @@ public class KeyService {
     }
 
     public String getRandomKey() { //TODO: add random key
-        Set<String> pool = redisKeyPoolRepository.findById(keysPoolId)
-                .orElseThrow(KeyPoolNotFoundException::new)
-                .getKeys();
+        RedisKeyPoolEntity entity = redisKeyPoolRepository.findById(keysPoolId)
+                .orElseThrow(KeyPoolNotFoundException::new);
+        Set<String> pool = entity.getKeys();
 
         if (pool.size() <= regenerateLength) {
             generateNewPool();
         }
 
-        return pool.stream().findFirst().get();
+        String key = pool.stream().findFirst().get();//TODO
+        pool.remove(key);
+        entity.setKeys(pool);
+        redisKeyPoolRepository.save(entity);
+        return key; 
     }
 }
